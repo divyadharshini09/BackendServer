@@ -7,7 +7,9 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb+srv://727722euec043:divya890ece@cluster0.jcsly.mongodb.net/data01', {
+const PORT = 3001;
+const MONGODB_URI ='mongodb+srv://727722euec043:divya890ece@cluster0.jcsly.mongodb.net/data01';
+mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -46,6 +48,6 @@ app.post("/createUser", (req, res) => {
         .catch(err => res.status(500).json({ error: "Internal server error" }));
 });
 
-app.listen(3002, () => {
+app.listen(PORT, () => {
     console.log("Server runs perfectly!");
 });
