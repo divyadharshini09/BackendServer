@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const userModel = require('./Models/users');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
 
 app.use(express.json());
 app.use(cors());
@@ -38,18 +37,12 @@ app.post("/loginUser", (req, res) => {
             return res.status(500).json({ status: "error", message: "Internal server error" });
         });
 });
-
-
-
 app.post("/createUser", (req, res) => {
     const { username, email, password } = req.body;
 
-    bcrypt.hash(password, 10)
-        .then(hash => {
-            userModel.create({ username, email, password: hash })
-                .then(user => res.json(user))
-                .catch(err => res.status(500).json({ error: "Internal server error" }));
-        })
+    // Directly save the password without hashing
+    userModel.create({ username, email, password })
+        .then(user => res.json(user))
         .catch(err => res.status(500).json({ error: "Internal server error" }));
 });
 
