@@ -30,7 +30,6 @@ app.post("/loginUser", (req, res) => {
             if (user) {
                 return res.json({ status: "success", message: "Email exists" });
             } else {
-                // Email does not exist
                 return res.json({ status: "error", message: "No user exists" });
             }
         })
